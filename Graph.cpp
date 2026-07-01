@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_map>
 #include <algorithm>
+#include <unordered_set>
  
 class Graph{
 
@@ -20,7 +21,7 @@ class Graph{
         }
 
         bool contains(char key,char value){
-            if (!containsvertex(key))
+            if (containsvertex(key))
             {
                 auto it = std::find(road[key].begin(),road[key].end(),value);
 
@@ -28,6 +29,9 @@ class Graph{
                 {
                     return false;
                 }
+            }
+            else{
+                return false;
             }
             
             return true;
@@ -46,9 +50,46 @@ class Graph{
             return road.find(key) != road.end();
         }
 
+        void dfs(char check){
+
+            std::unordered_set<char> visited;
+
+            dfsH(check,visited);    
+            }
+
+        void dfsH(char check, std::unordered_set<char>& v){
+
+                if (v.find(check) != v.end())
+                   {
+                    return;
+                   }
+                   v.insert(check);
+                   std::cout << check << ' ';
+                   
+                for (auto const& neighbour : road[check])
+                {
+                   
+                   dfsH(neighbour,v);
+                
+                }
+                
+            }   
+
 };
 
 int main(){
 
+    Graph graph;
+
+    graph.addedge('A','B');
+    graph.addedge('B','C');
+    graph.addedge('C','D');
+    
+    graph.dfs('A');
+
+
+
 }
+
+
 
