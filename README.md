@@ -14,6 +14,7 @@ This project stores graphs using an adjacency list representation and was built 
 - Check if an Edge Exists
 - Prevent Duplicate Edges
 - Undirected Graph Representation
+- DFS support
 
 ---
 
