@@ -1,8 +1,13 @@
 # Graph (Adjacency List) - C++
 
-A Graph implementation written from scratch using modern C++.
+A graph implementation written from scratch using Modern C++.
 
-This project stores graphs using an adjacency list representation and was built as part of my journey learning data structures and algorithms through implementation rather than relying on existing libraries.
+This project stores graphs using an adjacency list representation and implements two fundamental graph traversal algorithms:
+
+- Depth First Search (DFS)
+- Breadth First Search (BFS)
+
+The goal of this project was to understand how graphs are represented internally and how different traversal strategies work.
 
 ---
 
@@ -14,7 +19,8 @@ This project stores graphs using an adjacency list representation and was built 
 - Check if an Edge Exists
 - Prevent Duplicate Edges
 - Undirected Graph Representation
-- DFS support
+- Depth First Search (DFS)
+- Breadth First Search (BFS)
 
 ---
 
@@ -23,28 +29,100 @@ This project stores graphs using an adjacency list representation and was built 
 The graph is represented using an adjacency list.
 
 ```cpp
-std::unordered_map<char, std::vector<char>> graph;
+std::unordered_map<char, std::vector<char>> road;
 ```
 
-Each key represents a vertex.
+Each key is a vertex.
 
-Each vector stores all neighboring vertices connected by an edge.
+Each vector stores all neighbouring vertices.
 
-Example:
+Example
 
-```text
+```
 A ----- B
 |
 |
 C
 ```
 
-Stored as:
+Stored as
 
-```cpp
-A -> {B, C}
-B -> {A}
-C -> {A}
+```text
+A -> B C
+B -> A
+C -> A
+```
+
+---
+
+## Graph Traversals
+
+### Depth First Search (DFS)
+
+DFS explores one path completely before backtracking.
+
+Example
+
+```
+        A
+      /   \
+     B     C
+    / \
+   D   E
+```
+
+Traversal
+
+```
+A → B → D → E → C
+```
+
+Implementation details
+
+- Recursive
+- Uses an `unordered_set` to prevent revisiting vertices
+- Recursion replaces the need for an explicit stack
+
+Complexity
+
+```
+Time: O(V + E)
+Space: O(V)
+```
+
+---
+
+### Breadth First Search (BFS)
+
+BFS explores the graph level by level.
+
+Example
+
+```
+        A
+      /   \
+     B     C
+    / \     \
+   D   E     F
+```
+
+Traversal
+
+```
+A → B → C → D → E → F
+```
+
+Implementation details
+
+- Uses a queue
+- Uses an `unordered_set` for visited vertices
+- Processes vertices in the order they are discovered
+
+Complexity
+
+```
+Time: O(V + E)
+Space: O(V)
 ```
 
 ---
@@ -55,72 +133,55 @@ C -> {A}
 
 Creates a new vertex if it does not already exist.
 
-Time Complexity
+Average Complexity
 
 ```
-Average: O(1)
+O(1)
 ```
 
 ---
 
 ### Add Edge
 
-Adds an undirected connection between two vertices.
+Creates an undirected edge between two vertices.
 
-Duplicate edges are ignored.
-
-Example
-
-```cpp
-graph.addEdge('A', 'B');
-```
-
-Internally stores:
-
-```text
-A -> B
-B -> A
-```
-
-Time Complexity
+Average Complexity
 
 ```
-Average: O(n)
+O(n)
 ```
 
-where **n** is the number of neighbors of the source vertex.
+where **n** is the number of neighbours of the source vertex.
 
 ---
 
 ### Contains Vertex
 
-Checks whether a vertex exists.
+Checks if a vertex exists.
 
-Time Complexity
+Average Complexity
 
 ```
-Average: O(1)
+O(1)
 ```
 
 ---
 
 ### Contains Edge
 
-Searches a vertex's adjacency list to determine whether a connection already exists.
+Checks if an edge already exists.
 
-Uses `std::find()` to search the neighbor list.
+Uses `std::find()` on the adjacency list.
 
-Time Complexity
+Complexity
 
 ```
 O(n)
 ```
 
-where **n** is the number of neighbors.
-
 ---
 
-## Complexity
+## Complexity Summary
 
 | Operation | Complexity |
 |-----------|------------|
@@ -128,6 +189,8 @@ where **n** is the number of neighbors.
 | Add Edge | O(n) |
 | Contains Vertex | Average O(1) |
 | Contains Edge | O(n) |
+| DFS | O(V + E) |
+| BFS | O(V + E) |
 
 ---
 
@@ -135,58 +198,38 @@ where **n** is the number of neighbors.
 
 - Graph Representation
 - Adjacency Lists
+- Graph Traversal
+- Depth First Search
+- Breadth First Search
+- Recursion
+- Queues
 - Hash Maps
-- Vectors
+- Hash Sets
 - STL Algorithms (`std::find`)
 - API Design
-- Preventing Duplicate Edges
-- Undirected Graphs
 - Time Complexity Analysis
-
----
-
-## Example
-
-```cpp
-Graph graph;
-
-graph.addVertex('A');
-graph.addVertex('B');
-graph.addVertex('C');
-
-graph.addEdge('A', 'B');
-graph.addEdge('A', 'C');
-graph.addEdge('B', 'C');
-```
-
-Result
-
-```text
-A -> B C
-B -> A C
-C -> A B
-```
 
 ---
 
 ## What I Learned
 
-- Graphs are collections of vertices connected by edges.
-- An adjacency list efficiently stores sparse graphs.
-- A hash map provides fast vertex lookup.
-- Each vertex maintains a list of its neighboring vertices.
-- Preventing duplicate edges is an important graph invariant.
-- Well-designed helper functions (`containsVertex`, `containsEdge`) simplify higher-level operations.
-- Good API design often means composing small functions rather than writing one large function.
+- Graphs store relationships rather than hierarchy.
+- An adjacency list is memory efficient for sparse graphs.
+- DFS explores as deep as possible before backtracking.
+- BFS explores graphs level by level.
+- DFS naturally uses recursion.
+- BFS naturally uses a queue.
+- `unordered_set` provides efficient visited checks.
+- Different data structures are chosen based on the operations an algorithm performs rather than familiarity.
 
 ---
 
-## Next Steps
+## Future Improvements
 
-Future additions to this project:
-
-- Depth First Search (DFS)
-- Breadth First Search (BFS)
-- Path Finding
+- Remove Edge
+- Remove Vertex
 - Connected Components
-- Shortest Path Algorithms (Dijkstra)
+- Cycle Detection
+- Topological Sort
+- Dijkstra's Algorithm
+- Minimum Spanning Tree
