@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <unordered_set>
+#include <queue>
  
 class Graph{
 
@@ -75,6 +76,45 @@ class Graph{
                 
             }   
 
+        void bfs(char check){
+
+            std::queue<char> q;
+            std::unordered_set<char> visited;
+            q.push(check);
+            visited.insert(check);
+           
+            
+            while (!q.empty())
+            { 
+                char current = q.front();
+                q.pop();    
+                std::cout<< current<< ' ';
+                for (auto const& nei : road[current])
+                { 
+                    
+                    if (visited.find(nei) == visited.end())
+                    {
+                        visited.insert(nei);
+                        q.push(nei);
+                        
+                    }
+                   
+                }
+                current = q.front();
+                
+                
+
+                
+            }
+            
+
+
+
+
+        }
+
+        
+
 };
 
 int main(){
@@ -85,7 +125,7 @@ int main(){
     graph.addedge('B','C');
     graph.addedge('C','D');
     
-    graph.dfs('A');
+   graph.bfs('A');
 
 
 
