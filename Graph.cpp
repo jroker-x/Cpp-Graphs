@@ -54,6 +54,7 @@ class Graph{
         void dfs(char check){
 
             std::unordered_set<char> visited;
+            
 
             dfsH(check,visited);    
             }
@@ -65,7 +66,7 @@ class Graph{
                     return;
                    }
                    v.insert(check);
-                   std::cout << check << ' ';
+                  
                    
                 for (auto const& neighbour : road[check])
                 {
@@ -74,7 +75,7 @@ class Graph{
                 
                 }
                 
-            }   
+            } 
 
         void bfs(char check){
 
@@ -101,19 +102,66 @@ class Graph{
                    
                 }
                 current = q.front();
-                
-                
-
-                
+                    
             }
             
+        }
 
+        int cc(){
 
+            std::unordered_set<char> visited;
+            int components = 0;
+            for (auto const& vert : road)
+            {
+                if (visited.find(vert.first) == visited.end())
+                {
+                    dfsH(vert.first,visited);
+                    components++;
+                }
+                
+            }
+            return components;
+        }
 
+        void dfsPrintComponent(char current,std::unordered_set<char>& visited){
+
+            if (visited.find(current) != visited.end())
+                   {
+                    return;
+                   }
+                   visited.insert(current);
+                   std::cout << current;
+                  
+                   
+                for (auto const& neighbour : road[current])
+                {
+                   
+                   dfsPrintComponent(neighbour,visited);
+                
+                }
+            
 
         }
 
-        
+        void printcomponents(){
+
+            std::unordered_set<char> visited;
+            int count =1;
+            for (auto const& vert : road)
+            {
+                if (visited.find(vert.first) == visited.end())
+                {
+                   std::cout << "COMPONENT " << count++ << ':';
+                   dfsPrintComponent(vert.first,visited);
+                    std::cout << '\n';
+                }
+                
+            }
+            
+            
+
+        }
+      
 
 };
 
@@ -122,10 +170,10 @@ int main(){
     Graph graph;
 
     graph.addedge('A','B');
-    graph.addedge('B','C');
-    graph.addedge('C','D');
+    graph.addedge('Z','C');
+    graph.addedge('P','D');
     
-   graph.bfs('A');
+    graph.printcomponents();
 
 
 
