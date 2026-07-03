@@ -1,13 +1,8 @@
 # Graph (Adjacency List) - C++
 
-A graph implementation written from scratch using Modern C++.
+A graph implementation from scratch using Modern C++.
 
-This project stores graphs using an adjacency list representation and implements two fundamental graph traversal algorithms:
-
-- Depth First Search (DFS)
-- Breadth First Search (BFS)
-
-The goal of this project was to understand how graphs are represented internally and how different traversal strategies work.
+This project implements an undirected graph using an adjacency list along with several fundamental graph algorithms.
 
 ---
 
@@ -15,39 +10,38 @@ The goal of this project was to understand how graphs are represented internally
 
 - Add Vertex
 - Add Edge
-- Check if a Vertex Exists
-- Check if an Edge Exists
+- Check if Vertex Exists
+- Check if Edge Exists
 - Prevent Duplicate Edges
-- Undirected Graph Representation
 - Depth First Search (DFS)
 - Breadth First Search (BFS)
+- Connected Components Counter
+- Print Connected Components
 
 ---
 
 ## Data Structure
 
-The graph is represented using an adjacency list.
-
 ```cpp
 std::unordered_map<char, std::vector<char>> road;
 ```
 
-Each key is a vertex.
+Each key represents a vertex.
 
-Each vector stores all neighbouring vertices.
+Each vector stores its neighbouring vertices.
 
 Example
 
 ```
-A ----- B
+A ---- B
 |
 |
 C
 ```
 
-Stored as
+Stored internally as
 
-```text
+```
 A -> B C
 B -> A
 C -> A
@@ -55,142 +49,102 @@ C -> A
 
 ---
 
-## Graph Traversals
+## Algorithms
 
 ### Depth First Search (DFS)
 
-DFS explores one path completely before backtracking.
+Explores one path completely before backtracking.
 
-Example
+Uses:
 
-```
-        A
-      /   \
-     B     C
-    / \
-   D   E
-```
-
-Traversal
-
-```
-A → B → D → E → C
-```
-
-Implementation details
-
-- Recursive
-- Uses an `unordered_set` to prevent revisiting vertices
-- Recursion replaces the need for an explicit stack
+- Recursion
+- `std::unordered_set`
 
 Complexity
 
 ```
-Time: O(V + E)
-Space: O(V)
+O(V + E)
 ```
 
 ---
 
 ### Breadth First Search (BFS)
 
-BFS explores the graph level by level.
+Explores the graph level-by-level.
+
+Uses:
+
+- Queue
+- `std::unordered_set`
+
+Complexity
+
+```
+O(V + E)
+```
+
+---
+
+### Connected Components
+
+Finds how many disconnected subgraphs exist.
 
 Example
 
 ```
-        A
-      /   \
-     B     C
-    / \     \
-   D   E     F
+A ---- B ---- C
+
+D ---- E
+
+F
 ```
 
-Traversal
+Output
 
 ```
-A → B → C → D → E → F
+Total Components = 3
 ```
 
-Implementation details
-
-- Uses a queue
-- Uses an `unordered_set` for visited vertices
-- Processes vertices in the order they are discovered
+Uses DFS internally.
 
 Complexity
 
 ```
-Time: O(V + E)
-Space: O(V)
+O(V + E)
 ```
 
 ---
 
-## Operations
+### Print Connected Components
 
-### Add Vertex
+Prints every connected component individually.
 
-Creates a new vertex if it does not already exist.
-
-Average Complexity
+Example
 
 ```
-O(1)
-```
+Component 1:
+A B C
 
----
+Component 2:
+D E
 
-### Add Edge
-
-Creates an undirected edge between two vertices.
-
-Average Complexity
-
-```
-O(n)
-```
-
-where **n** is the number of neighbours of the source vertex.
-
----
-
-### Contains Vertex
-
-Checks if a vertex exists.
-
-Average Complexity
-
-```
-O(1)
+Component 3:
+F
 ```
 
 ---
 
-### Contains Edge
-
-Checks if an edge already exists.
-
-Uses `std::find()` on the adjacency list.
-
-Complexity
-
-```
-O(n)
-```
-
----
-
-## Complexity Summary
+## Time Complexity
 
 | Operation | Complexity |
-|-----------|------------|
+|----------|------------|
 | Add Vertex | Average O(1) |
 | Add Edge | O(n) |
 | Contains Vertex | Average O(1) |
 | Contains Edge | O(n) |
 | DFS | O(V + E) |
 | BFS | O(V + E) |
+| Connected Components | O(V + E) |
 
 ---
 
@@ -198,38 +152,23 @@ O(n)
 
 - Graph Representation
 - Adjacency Lists
-- Graph Traversal
-- Depth First Search
-- Breadth First Search
-- Recursion
-- Queues
 - Hash Maps
 - Hash Sets
-- STL Algorithms (`std::find`)
-- API Design
-- Time Complexity Analysis
-
----
-
-## What I Learned
-
-- Graphs store relationships rather than hierarchy.
-- An adjacency list is memory efficient for sparse graphs.
-- DFS explores as deep as possible before backtracking.
-- BFS explores graphs level by level.
-- DFS naturally uses recursion.
-- BFS naturally uses a queue.
-- `unordered_set` provides efficient visited checks.
-- Different data structures are chosen based on the operations an algorithm performs rather than familiarity.
+- Recursion
+- Queues
+- DFS
+- BFS
+- Connected Components
+- Graph Traversal
+- Complexity Analysis
 
 ---
 
 ## Future Improvements
 
-- Remove Edge
-- Remove Vertex
-- Connected Components
 - Cycle Detection
 - Topological Sort
 - Dijkstra's Algorithm
 - Minimum Spanning Tree
+- Weighted Graphs
+- Directed Graphs
