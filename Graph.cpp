@@ -161,23 +161,70 @@ class Graph{
             
 
         }
+
+        bool dfscycle(char son, char parent, std::unordered_set<char>& visited){
+
+             visited.insert(son);
+            
+            for (auto const& neighbour : road[son])
+                {
+                
+                   if (neighbour == parent)
+                   {
+                        continue;
+                   }
+                   else if (visited.find(neighbour) != visited.end() && neighbour != parent)
+                   {
+                        return true;
+                   }
+                   if (dfscycle(neighbour,son,visited))
+                   {
+                        return true;
+                   }
+                
+                }
+            
+                return false;
+        }
+
+        bool hasCycle(char son, char parent){
+
+            std::unordered_set<char> visited;
+            
+            for (auto const& vert : road)
+            {
+                if (visited.find(vert.first) == visited.end())
+                {
+                    if (dfscycle(son,parent,visited))
+                    {
+                        return true;
+                    }
+            
+                    
+                }
+                
+            }
+            return false;
+            
+        }
       
 
 };
 
 int main(){
 
-    Graph graph;
+    Graph g;
 
-    graph.addedge('A','B');
-    graph.addedge('Z','C');
-    graph.addedge('P','D');
+    g.addedge('A', 'B');
+    g.addedge('B', 'C');
+    g.addedge('C', 'D');
     
-    graph.printcomponents();
-
-
+    g.printcomponents();
+    std::cout << g.hasCycle('B','A');
+    
 
 }
 
 
 
+ 
