@@ -1,8 +1,8 @@
 # Graph (Adjacency List) - C++
 
-A graph implementation from scratch using Modern C++.
+A graph implementation built from scratch using Modern C++.
 
-This project implements an undirected graph using an adjacency list along with several fundamental graph algorithms.
+This project implements an undirected graph using an adjacency list along with several fundamental graph algorithms built on top of it.
 
 ---
 
@@ -10,17 +10,20 @@ This project implements an undirected graph using an adjacency list along with s
 
 - Add Vertex
 - Add Edge
-- Check if Vertex Exists
-- Check if Edge Exists
+- Check if a Vertex Exists
+- Check if an Edge Exists
 - Prevent Duplicate Edges
 - Depth First Search (DFS)
 - Breadth First Search (BFS)
-- Connected Components Counter
+- Connected Components
 - Print Connected Components
+- Cycle Detection
 
 ---
 
 ## Data Structure
+
+The graph is represented using an adjacency list.
 
 ```cpp
 std::unordered_map<char, std::vector<char>> road;
@@ -28,7 +31,7 @@ std::unordered_map<char, std::vector<char>> road;
 
 Each key represents a vertex.
 
-Each vector stores its neighbouring vertices.
+Each vector stores all neighbouring vertices.
 
 Example
 
@@ -49,13 +52,13 @@ C -> A
 
 ---
 
-## Algorithms
+# Algorithms
 
-### Depth First Search (DFS)
+## Depth First Search (DFS)
 
-Explores one path completely before backtracking.
+Explores one branch completely before backtracking.
 
-Uses:
+Uses
 
 - Recursion
 - `std::unordered_set`
@@ -63,16 +66,17 @@ Uses:
 Complexity
 
 ```
-O(V + E)
+Time: O(V + E)
+Space: O(V)
 ```
 
 ---
 
-### Breadth First Search (BFS)
+## Breadth First Search (BFS)
 
-Explores the graph level-by-level.
+Explores the graph level by level.
 
-Uses:
+Uses
 
 - Queue
 - `std::unordered_set`
@@ -80,21 +84,22 @@ Uses:
 Complexity
 
 ```
-O(V + E)
+Time: O(V + E)
+Space: O(V)
 ```
 
 ---
 
-### Connected Components
+## Connected Components
 
-Finds how many disconnected subgraphs exist.
+Determines how many disconnected groups exist inside the graph.
 
 Example
 
 ```
-A ---- B ---- C
+A --- B --- C
 
-D ---- E
+D --- E
 
 F
 ```
@@ -102,7 +107,11 @@ F
 Output
 
 ```
-Total Components = 3
+Component 1: A B C
+Component 2: D E
+Component 3: F
+
+Total Components: 3
 ```
 
 Uses DFS internally.
@@ -110,34 +119,53 @@ Uses DFS internally.
 Complexity
 
 ```
-O(V + E)
+Time: O(V + E)
+Space: O(V)
 ```
 
 ---
 
-### Print Connected Components
+## Cycle Detection
 
-Prints every connected component individually.
+Determines whether an undirected graph contains a cycle.
+
+Uses DFS with one additional piece of information:
+
+- Parent Vertex
+
+When a visited neighbour is encountered:
+
+- If it is the parent, ignore it.
+- If it is not the parent, a cycle has been found.
 
 Example
 
 ```
-Component 1:
-A B C
+A ---- B
+|      |
+|      |
+D ---- C
+```
 
-Component 2:
-D E
+Output
 
-Component 3:
-F
+```
+Cycle Found
+```
+
+Complexity
+
+```
+Time: O(V + E)
+Space: O(V)
 ```
 
 ---
 
-## Time Complexity
+# Complexity Summary
 
 | Operation | Complexity |
-|----------|------------|
+|-----------|------------|
 | Add Vertex | Average O(1) |
 | Add Edge | O(n) |
 | Contains Vertex | Average O(1) |
@@ -145,10 +173,11 @@ F
 | DFS | O(V + E) |
 | BFS | O(V + E) |
 | Connected Components | O(V + E) |
+| Cycle Detection | O(V + E) |
 
 ---
 
-## Concepts Practiced
+# Concepts Practiced
 
 - Graph Representation
 - Adjacency Lists
@@ -156,19 +185,34 @@ F
 - Hash Sets
 - Recursion
 - Queues
-- DFS
-- BFS
-- Connected Components
 - Graph Traversal
+- Depth First Search
+- Breadth First Search
+- Connected Components
+- Cycle Detection
+- Recursive State
 - Complexity Analysis
 
 ---
 
-## Future Improvements
+# What I Learned
 
-- Cycle Detection
-- Topological Sort
-- Dijkstra's Algorithm
-- Minimum Spanning Tree
-- Weighted Graphs
+- Graphs model relationships rather than hierarchy.
+- An adjacency list is efficient for sparse graphs.
+- DFS explores as deep as possible before backtracking.
+- BFS explores graphs level by level using a queue.
+- Connected Components are found by repeatedly applying DFS.
+- Cycle Detection in undirected graphs requires tracking the parent vertex.
+- Recursive functions can propagate information through return values.
+- Choosing the right data structure depends on the operations an algorithm performs.
+
+---
+
+# Future Improvements
+
 - Directed Graphs
+- Topological Sort
+- Weighted Graphs
+- Dijkstra's Algorithm
+- Minimum Spanning Tree (Prim)
+- Minimum Spanning Tree (Kruskal)
