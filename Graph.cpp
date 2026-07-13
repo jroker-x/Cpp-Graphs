@@ -26,6 +26,21 @@ struct Node{
     }
 };
 
+struct MSTnode
+{
+    char from;
+    char to;
+    int cost;
+
+    bool operator<(MSTnode& other)const {
+
+        return cost < other.cost;
+
+    }
+
+};
+
+
 template<typename T>
 class Heap{
 
@@ -401,6 +416,42 @@ class Graph{
 
         }
 
+        std::vector<MSTnode> prim(char start){
+
+            std::vector<MSTnode> mst;
+            Heap<MSTnode> heap;
+            std::unordered_set<char> visited;
+            visited.insert(start);
+            
+            for (auto const& vert: road[start])
+            {
+                heap.insert({start,vert.destination,vert.weight});
+            }
+
+            while (!heap.empty())
+            {
+                MSTnode current = heap.top();
+                heap.pop();
+
+                if (visited.find(current.to) != visited.end())
+                {
+                    continue;
+                }
+                visited.insert(current.to);
+                mst.push_back(current);
+
+                for (auto const& neigh: road[current.to])
+                {
+                    if (visited.find(neigh.destination) == visited.end())
+                    {
+                       heap.insert({current.to,neigh.destination,neigh.weight});
+                    }
+                }
+            
+            }
+            
+            return mst;
+        }
         
       
 
@@ -408,26 +459,37 @@ class Graph{
 
 int main(){
 
-    Graph graph;
-    graph.addedge('A','B',10);
-    graph.addedge('A','C',2);
-    graph.addedge('C','B',3);
-    graph.addedge('B','D',1);
-    graph.addedge('C','D',8);
+   Graph graph;
 
-    auto dist = graph.dijkstra('A');
+    graph.addedge('A', 'B', 4);
+    graph.addedge('A', 'C', 2);
+    graph.addedge('B', 'C', 1);
+    graph.addedge('B', 'D', 5);
+    graph.addedge('C', 'D', 8);
+    graph.addedge('C', 'E', 10);
+    graph.addedge('D', 'E', 2);
+    graph.addedge('D', 'F', 6);
+    graph.addedge('E', 'F', 3);
 
-    for (auto const& v : dist)
+    auto mst = graph.prim('A');
+
+    int totalCost = 0;
+
+    std::cout << "Minimum Spanning Tree:\n";
+
+    for (const auto& edge : mst)
     {
-        std::cout << v.first << " : " << v.second << '\n';
+        std::cout << edge.from
+                << " -> "
+                << edge.to
+                << " (" << edge.cost << ")\n";
+
+        totalCost += edge.cost;
     }
+
+    std::cout << "\nTotal Cost: " << totalCost << '\n';
+
     
-    auto path = graph.shortestpath('A', 'B');
-    
-    for (size_t i = 0; i < path.size(); i++)
-    {
-        std::cout << path[i] << "->";
-    }
     
     
     
