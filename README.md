@@ -2,7 +2,7 @@
 
 A graph data structure implemented from scratch in Modern C++.
 
-This project was built as a learning exercise to understand graph traversal, graph analysis, and shortest-path algorithms without relying on the STL implementations.
+This project was built to understand graph theory and classical graph algorithms without relying on existing graph libraries. Every algorithm was implemented manually using custom data structures where appropriate.
 
 ---
 
@@ -21,9 +21,10 @@ This project was built as a learning exercise to understand graph traversal, gra
 
 ### Depth First Search (DFS)
 
-Traverses a graph recursively using a visited set.
+Traverses a graph recursively.
 
-Concepts learned:
+Concepts practiced:
+
 - Recursion
 - Graph traversal
 - Visited sets
@@ -34,10 +35,11 @@ Concepts learned:
 
 Traverses a graph level-by-level using a queue.
 
-Concepts learned:
-- Queue
+Concepts practiced:
+
+- Queues
 - Level-order traversal
-- Visited sets
+- Graph exploration
 
 ---
 
@@ -45,11 +47,11 @@ Concepts learned:
 
 ### Connected Components
 
-Counts disconnected subgraphs inside a graph.
+Counts the number of disconnected components in a graph.
 
-Concepts learned:
+Concepts practiced:
+
 - DFS over disconnected graphs
-- Outer traversal loop
 - Graph connectivity
 
 ---
@@ -60,11 +62,13 @@ Prints every connected component individually.
 
 Example:
 
+```
 Component 1:
 A B C
 
 Component 2:
 D E
+```
 
 ---
 
@@ -72,37 +76,69 @@ D E
 
 Detects whether an undirected graph contains a cycle using DFS and parent tracking.
 
-Concepts learned:
+Concepts practiced:
+
 - Parent tracking
 - Back edges
 - Recursive graph search
 
 ---
 
-## Shortest Path
+## Shortest Path Algorithms
 
 ### Dijkstra's Algorithm
 
-Finds the shortest distance from a source vertex to every reachable vertex using a custom Min Heap.
+Computes the shortest distance from a source vertex to every reachable vertex using a custom Min Heap.
 
 Features:
 
-- Computes shortest distances
-- Reconstructs the actual shortest path
-- Uses a custom templated Min Heap
-- Uses operator overloading for custom node comparison
+- Shortest distance calculation
+- Path reconstruction
+- Custom templated Min Heap
+- Operator overloading for heap ordering
 
-Concepts learned:
+Concepts practiced:
 
 - Greedy algorithms
-- Priority queues / Min Heaps
+- Priority queues
 - Relaxation
 - Path reconstruction
 - Weighted graphs
 
 Time Complexity:
 
+```
 O((V + E) log V)
+```
+
+---
+
+## Minimum Spanning Tree
+
+### Prim's Algorithm
+
+Constructs a Minimum Spanning Tree (MST) using a custom Min Heap.
+
+Features:
+
+- Builds a minimum-cost spanning tree
+- Stores selected MST edges
+- Uses a visited set to prevent cycles
+- Works on connected weighted graphs
+
+Concepts practiced:
+
+- Greedy algorithms
+- Minimum Spanning Trees
+- Graph expansion
+- Priority queues
+- Cycle prevention
+
+Time Complexity:
+
+```
+O((V + E) log V)
+```
 
 ---
 
@@ -112,7 +148,7 @@ O((V + E) log V)
 - std::vector
 - std::unordered_set
 - std::queue
-- Custom Min Heap (templated)
+- Custom templated Min Heap
 
 ---
 
@@ -124,17 +160,19 @@ O((V + E) log V)
 - Template programming
 - Operator overloading
 - Hash tables
-- Algorithm implementation
-- Debugging complex state
+- Heap-based optimization
+- Path reconstruction
 - Software design
+- Debugging algorithm implementations
 
 ---
 
 ## Future Improvements
 
-- Directed graphs
+- Directed Graphs
+- Topological Sort
+- Disjoint Set Union (Union-Find)
+- Kruskal's Algorithm
 - Bellman-Ford Algorithm
 - Floyd-Warshall Algorithm
-- Prim's Minimum Spanning Tree
-- Kruskal's Algorithm
 - A* Pathfinding
