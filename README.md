@@ -23,7 +23,7 @@ This project was built to understand graph theory and classical graph algorithms
 
 Traverses a graph recursively.
 
-Concepts practiced:
+**Concepts practiced:**
 
 - Recursion
 - Graph traversal
@@ -35,7 +35,7 @@ Concepts practiced:
 
 Traverses a graph level-by-level using a queue.
 
-Concepts practiced:
+**Concepts practiced:**
 
 - Queues
 - Level-order traversal
@@ -49,7 +49,7 @@ Concepts practiced:
 
 Counts the number of disconnected components in a graph.
 
-Concepts practiced:
+**Concepts practiced:**
 
 - DFS over disconnected graphs
 - Graph connectivity
@@ -62,7 +62,7 @@ Prints every connected component individually.
 
 Example:
 
-```
+```text
 Component 1:
 A B C
 
@@ -76,7 +76,7 @@ D E
 
 Detects whether an undirected graph contains a cycle using DFS and parent tracking.
 
-Concepts practiced:
+**Concepts practiced:**
 
 - Parent tracking
 - Back edges
@@ -88,45 +88,45 @@ Concepts practiced:
 
 ### Dijkstra's Algorithm
 
-Computes the shortest distance from a source vertex to every reachable vertex using a custom Min Heap.
+Computes the shortest distance from a source vertex to every reachable vertex using a custom templated Min Heap.
 
-Features:
+**Features:**
 
 - Shortest distance calculation
 - Path reconstruction
 - Custom templated Min Heap
 - Operator overloading for heap ordering
 
-Concepts practiced:
+**Concepts practiced:**
 
 - Greedy algorithms
 - Priority queues
 - Relaxation
-- Path reconstruction
 - Weighted graphs
+- Path reconstruction
 
-Time Complexity:
+**Time Complexity**
 
-```
+```text
 O((V + E) log V)
 ```
 
 ---
 
-## Minimum Spanning Tree
+## Minimum Spanning Tree Algorithms
 
 ### Prim's Algorithm
 
-Constructs a Minimum Spanning Tree (MST) using a custom Min Heap.
+Constructs a Minimum Spanning Tree (MST) using a custom templated Min Heap.
 
-Features:
+**Features:**
 
 - Builds a minimum-cost spanning tree
 - Stores selected MST edges
 - Uses a visited set to prevent cycles
-- Works on connected weighted graphs
+- Expands the tree greedily from a starting vertex
 
-Concepts practiced:
+**Concepts practiced:**
 
 - Greedy algorithms
 - Minimum Spanning Trees
@@ -134,21 +134,78 @@ Concepts practiced:
 - Priority queues
 - Cycle prevention
 
-Time Complexity:
+**Time Complexity**
 
-```
+```text
 O((V + E) log V)
 ```
 
 ---
 
+### Kruskal's Algorithm
+
+Constructs a Minimum Spanning Tree by sorting all graph edges and selecting the cheapest edges that do not create cycles.
+
+**Features:**
+
+- Edge sorting
+- Cycle detection using Disjoint Set Union
+- Minimum-cost spanning tree construction
+- Greedy edge selection
+
+**Concepts practiced:**
+
+- Greedy algorithms
+- Edge sorting
+- Minimum Spanning Trees
+- Cycle detection
+- Connected components
+
+**Time Complexity**
+
+```text
+O(E log E)
+```
+
+---
+
+## Disjoint Set Union (Union-Find)
+
+Implemented to support Kruskal's Algorithm.
+
+**Features:**
+
+- Path Compression
+- Union by Size
+- Fast connectivity queries
+- Generic templated implementation
+
+**Concepts practiced:**
+
+- Disjoint Sets
+- Tree compression
+- Set merging
+- Near constant-time connectivity operations
+
+**Time Complexity**
+
+| Operation | Complexity |
+|----------|------------|
+| Find | O(α(n)) amortized |
+| Union | O(α(n)) amortized |
+
+*α(n) is the inverse Ackermann function, which is effectively constant for practical input sizes.*
+
+---
+
 ## Data Structures Used
 
-- std::unordered_map
-- std::vector
-- std::unordered_set
-- std::queue
+- `std::unordered_map`
+- `std::unordered_set`
+- `std::vector`
+- `std::queue`
 - Custom templated Min Heap
+- Custom templated Disjoint Set Union (Union-Find)
 
 ---
 
@@ -157,10 +214,14 @@ O((V + E) log V)
 - Graph traversal
 - Recursive algorithms
 - Greedy algorithms
+- Priority queues
+- Minimum Spanning Trees
+- Disjoint Set Union
+- Path Compression
+- Union by Size
 - Template programming
 - Operator overloading
 - Hash tables
-- Heap-based optimization
 - Path reconstruction
 - Software design
 - Debugging algorithm implementations
@@ -169,10 +230,10 @@ O((V + E) log V)
 
 ## Future Improvements
 
-- Directed Graphs
+- Directed Graph support
 - Topological Sort
-- Disjoint Set Union (Union-Find)
-- Kruskal's Algorithm
 - Bellman-Ford Algorithm
 - Floyd-Warshall Algorithm
 - A* Pathfinding
+- Strongly Connected Components
+- Maximum Flow Algorithms
