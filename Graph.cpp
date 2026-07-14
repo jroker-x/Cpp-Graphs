@@ -12,13 +12,25 @@ struct Edge
     int weight;
 };
 
+struct KruskaalEdge
+{
+    char from;
+    char to;
+    int weight;
+
+    bool operator<(KruskaalEdge& other)const {
+
+        return weight < other.weight;
+
+    }
+
+
+};
+
 struct Node{
 
     char vertex;
     int dist;
-
-   
-
     bool operator<(Node& other)const {
 
         return dist < other.dist;
@@ -31,7 +43,6 @@ struct MSTnode
     char from;
     char to;
     int cost;
-
     bool operator<(MSTnode& other)const {
 
         return cost < other.cost;
@@ -40,6 +51,54 @@ struct MSTnode
 
 };
 
+template<typename T>
+class UnionFind{
+    private:
+    std::unordered_map<T,T> parent;
+
+    public:
+    
+    void makeSet(T inp){
+
+        parent[inp] = inp;
+
+    }
+
+    char find(T f){
+
+        if (parent[f] == f)
+        {
+            return f;
+        }
+        
+           
+        return parent[f] =  find(parent[f]);
+
+    }
+
+    void unite(T first,T second){
+        std::unordered_map<T,int> size;
+        T rootF = find(first);
+        T rootS = find(second);
+
+        if (rootF == rootS)
+        {
+            return;
+        }
+        
+        if (size[rootF] < size[rootS])
+        {
+            parent[rootF] = rootS;
+            size[rootF] += size[rootS];
+        }
+        else{
+            parent[rootS] = rootF;
+            size[rootS] += size[rootF];
+        }
+
+    }
+
+};
 
 template<typename T>
 class Heap{
@@ -200,7 +259,6 @@ class Graph{
             
         }
 
-        
         bool containsvertex(char key){
             return road.find(key) != road.end();
         }
@@ -453,6 +511,49 @@ class Graph{
             return mst;
         }
         
+        std::vector<KruskaalEdge> Kruskaal(){
+
+            std::vector<KruskaalEdge> edges;
+
+            for (auto const& v1 : road)
+            {
+                for (auto const& v2 : v1.second)
+                {
+                    if (v1.first < v2.destination)
+                    {
+                        edges.push_back({
+                            v1.first,v2.destination,v2.weight
+                        });
+                    }
+                    
+                    
+                }
+                
+            }
+            std::sort(edges.begin(),edges.end());
+            UnionFind<char> uf;
+            std::vector<KruskaalEdge> mst;
+            for (const auto& vertex : road)
+                {
+                    uf.makeSet(vertex.first);
+                }
+            for (auto const& sorted : edges)
+            {
+               
+                if (uf.find(sorted.from) != uf.find(sorted.to))
+                {
+                    mst.push_back(sorted);
+                    uf.unite(sorted.from, sorted.to);
+                }
+                
+            }
+            
+            return mst;
+
+
+
+
+        }
       
 
 };
@@ -461,35 +562,29 @@ int main(){
 
    Graph graph;
 
-    graph.addedge('A', 'B', 4);
+    graph.addedge('A', 'B', 10);
     graph.addedge('A', 'C', 2);
-    graph.addedge('B', 'C', 1);
-    graph.addedge('B', 'D', 5);
+    graph.addedge('C', 'B', 3);
+    graph.addedge('B', 'D', 1);
     graph.addedge('C', 'D', 8);
-    graph.addedge('C', 'E', 10);
-    graph.addedge('D', 'E', 2);
-    graph.addedge('D', 'F', 6);
-    graph.addedge('E', 'F', 3);
 
-    auto mst = graph.prim('A');
+    auto mst = graph.Kruskaal();
 
     int totalCost = 0;
 
-    std::cout << "Minimum Spanning Tree:\n";
+    std::cout << "Kruskal MST:\n";
 
     for (const auto& edge : mst)
     {
         std::cout << edge.from
                 << " -> "
                 << edge.to
-                << " (" << edge.cost << ")\n";
+                << " (" << edge.weight << ")\n";
 
-        totalCost += edge.cost;
+        totalCost += edge.weight;
     }
 
     std::cout << "\nTotal Cost: " << totalCost << '\n';
-
-    
     
     
     
